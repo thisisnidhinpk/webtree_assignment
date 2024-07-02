@@ -28,7 +28,7 @@ function Signin() {
       )
       .then((result) => {
         console.log(result.data);
-        dispatch(loggedin(result.data.email));
+        dispatch(loggedin(result.data));
         navigate("/dashboard");
         // if (result.data.userroll === "user") {
         //   setUser(result.data.id);

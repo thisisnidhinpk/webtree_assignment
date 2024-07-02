@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('my_users', function (Blueprint $table) {
             $table->integer('customerid')->autoIncrement();
-            $table->string('email');
+            $table->string('email')->unique();
             $table->string('fullname');
             $table->string('password');
         });
