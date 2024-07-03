@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\MyCatagoryController;
 use App\Http\Controllers\MyUsersController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -20,4 +21,6 @@ Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
 });
 Route::post('/userRegister', [MyUsersController::class, 'userRegister']);
 Route::post('/login', [MyUsersController::class, 'login']);
+Route::post('/createCatagory', [MyCatagoryController::class, 'createCatagory']);
+Route::post('/loadCatagory', [MyCatagoryController::class, 'loadCatagory']);
  

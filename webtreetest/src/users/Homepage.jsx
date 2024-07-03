@@ -48,7 +48,7 @@ function Homepage() {
           </div>
           <div className="form-group">
             {/* <button className="btn btn-secondary" type="button"> */}
-            <Link to={"/"}>Manage Catagory</Link>|
+            <Link to={"/manageCatagory"}>Manage Catagory</Link>|
             <Link to={"/"}>Manage Expences</Link>|
             <Link to={"/"}>Expence Summary</Link>
             <br></br>

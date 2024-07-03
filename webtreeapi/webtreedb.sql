@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 01, 2024 at 04:11 AM
+-- Generation Time: Jul 03, 2024 at 03:59 AM
 -- Server version: 10.4.25-MariaDB
 -- PHP Version: 8.1.10
 
@@ -54,11 +54,34 @@ CREATE TABLE `migrations` (
 --
 
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
-(1, '2014_10_12_000000_create_users_table', 1),
-(2, '2014_10_12_100000_create_password_reset_tokens_table', 1),
-(3, '2019_08_19_000000_create_failed_jobs_table', 1),
-(4, '2019_12_14_000001_create_personal_access_tokens_table', 1),
-(8, '2024_06_28_141319_create_my_users_table', 2);
+(21, '2014_10_12_000000_create_users_table', 1),
+(22, '2014_10_12_100000_create_password_reset_tokens_table', 1),
+(23, '2019_08_19_000000_create_failed_jobs_table', 1),
+(24, '2019_12_14_000001_create_personal_access_tokens_table', 1),
+(25, '2024_06_28_141319_create_my_users_table', 1),
+(26, '2024_07_02_014011_create_my_catagories_table', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `my_catagories`
+--
+
+CREATE TABLE `my_catagories` (
+  `catagoryid` int(11) NOT NULL,
+  `customerid` int(11) NOT NULL,
+  `catagory` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `my_catagories`
+--
+
+INSERT INTO `my_catagories` (`catagoryid`, `customerid`, `catagory`) VALUES
+(1, 1, 'office exp'),
+(2, 1, 'misc exp'),
+(3, 1, 'home exp'),
+(4, 1, 'misc exp');
 
 -- --------------------------------------------------------
 
@@ -78,11 +101,7 @@ CREATE TABLE `my_users` (
 --
 
 INSERT INTO `my_users` (`customerid`, `email`, `fullname`, `password`) VALUES
-(1, 'a@gmail.com', 'hiran', '$2y$12$1Vkj.I0T1jj/I0GRcjjUmO4tELicXQocvr4Rug30OkCUoHDFIRmXu'),
-(2, 'ab@gmail.com', 'vineeth', '$2y$12$RgZFYmWt.6szsSzel78FOO2W5c4u/uDeWx0yFpGuMw5YQkTK1to0a'),
-(3, 'abd@gmail.com', 'vineethgg', '$2y$12$yH1hWsLLHlXZhRalZaMi.u.S2FxwP3h/Xe8Q/EO5zeBNkYRgQ3/tG'),
-(4, 'aass@g.com', 'aswder', '$2y$12$S6bVGOeNGhvkGM4pGJtHruhj6ltHFUOnaAEb06YImOQq5OLvvZXzi'),
-(5, 'harish@gmail.com', 'harish', '$2y$12$hQcqNilE9jOBJZ2pf5DbCOthCKRS4IMxE4HwRyc6rm7e9NsHSW1Wa');
+(1, 'harish@gmail.com', 'harish', '$2y$12$sTGY/0tUjMg96DQfji17o.uNCWwuRDNJTMBu11ccq65I52yMD.XT6');
 
 -- --------------------------------------------------------
 
@@ -150,10 +169,18 @@ ALTER TABLE `migrations`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `my_catagories`
+--
+ALTER TABLE `my_catagories`
+  ADD PRIMARY KEY (`catagoryid`),
+  ADD KEY `my_catagories_customerid_foreign` (`customerid`);
+
+--
 -- Indexes for table `my_users`
 --
 ALTER TABLE `my_users`
-  ADD PRIMARY KEY (`customerid`);
+  ADD PRIMARY KEY (`customerid`),
+  ADD UNIQUE KEY `my_users_email_unique` (`email`);
 
 --
 -- Indexes for table `password_reset_tokens`
@@ -190,13 +217,19 @@ ALTER TABLE `failed_jobs`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+
+--
+-- AUTO_INCREMENT for table `my_catagories`
+--
+ALTER TABLE `my_catagories`
+  MODIFY `catagoryid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `my_users`
 --
 ALTER TABLE `my_users`
-  MODIFY `customerid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `customerid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `personal_access_tokens`
@@ -209,6 +242,16 @@ ALTER TABLE `personal_access_tokens`
 --
 ALTER TABLE `users`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `my_catagories`
+--
+ALTER TABLE `my_catagories`
+  ADD CONSTRAINT `my_catagories_customerid_foreign` FOREIGN KEY (`customerid`) REFERENCES `my_users` (`customerid`) ON DELETE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

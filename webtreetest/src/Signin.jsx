@@ -30,16 +30,7 @@ function Signin() {
         console.log(result.data);
         dispatch(loggedin(result.data));
         navigate("/dashboard");
-        // if (result.data.userroll === "user") {
-        //   setUser(result.data.id);
-
-        //   navigate("/user-dashboard");
-        // } else if (result.data.userroll === "admin") {
-        //   setUser(result.data.id);
-        //   navigate("/admin-dashboard");
-        // } else if (result.data.userroll === "") {
-        //   alert("login failed ...Invalid credentials");
-        // }
+        
       })
       .catch((err) => console.log(err));
   };
