@@ -23,4 +23,5 @@ Route::post('/userRegister', [MyUsersController::class, 'userRegister']);
 Route::post('/login', [MyUsersController::class, 'login']);
 Route::post('/createCatagory', [MyCatagoryController::class, 'createCatagory']);
 Route::post('/loadCatagory', [MyCatagoryController::class, 'loadCatagory']);
+Route::post('/updateCatagory', [MyCatagoryController::class, 'updateCatagory']);
  

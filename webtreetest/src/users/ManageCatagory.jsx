@@ -10,6 +10,8 @@ function ManageCatagory() {
   const userfullname = useSelector((state) => state.auth.UserFullname);
   const [catagory, setCatagory] = useState();
   const [catagoryList, setCatagoryList] = useState([]);
+  const [catagoryList1, setCatagoryList1] = useState([]);
+
   const headers = {
     "Content-Type": "application/json",
     Accept: "application/json",
@@ -17,7 +19,8 @@ function ManageCatagory() {
     "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,PATCH,OPTIONS",
   };
   let loadCatagory = () => {
-    alert("hjh");
+    // alert("hjh");
+    //useEffect(() => {
     axios
       .post(
         "http://127.0.0.1:8000/api/loadCatagory",
@@ -27,13 +30,49 @@ function ManageCatagory() {
         { headers }
       )
       .then((result) => {
-        console.log("kkk" + result.data);
-        setCatagoryList(response.data);
+        console.log(JSON.stringify(result.data));
+
+        setCatagoryList(result.data);
         // if (result.data.status == 200) {
         //   alert(result.data.Msg);
         // }
       })
       .catch((err) => console.log("jjj" + err));
+    // });
+  };
+  let updateCatagory = () => {
+    var x = document.getElementById("sel1").value;
+
+    setCatagory(x);
+
+    var changecatagory = prompt("Change catagory name");
+
+    if (changecatagory == null || changecatagory == "") {
+      return;
+    }
+    alert(email + "," + catagory + "," + changecatagory);
+    // useEffect(() => {
+
+    axios
+      .post(
+        "http://127.0.0.1:8000/api/updateCatagory",
+        {
+          email,
+          catagory,
+          changecatagory,
+        },
+        { headers }
+      )
+      .then((result) => {
+        console.log(JSON.stringify(result.data));
+        setCatagoryList([]);
+        setCatagoryList(result.data);
+        // if (result.data.status == 200) {
+        //   alert(result.data.Msg);
+        // }
+      })
+      .catch((err) => console.log("jjj" + err));
+    //});
   };
   let createCatagory = () => {
     axios
@@ -95,25 +134,30 @@ function ManageCatagory() {
               className="form-control"
               placeholder="Password (min 6 charracters)"
             /> */}
-            {/* <select id="sel1" className="form-control" onClick={loadCatagory}>
-              <option>kjk</option>
-            </select> */}
+            <select id="sel1" className="form-control" onClick={loadCatagory}>
+              {catagoryList.map((mycatagory, index) => (
+                <option key={index} value={mycatagory.catagory}>
+                  {mycatagory.catagory}
+                </option>
+              ))}
+              {/* {catagoryList1.map((mycatagory1, index) => (
+                <option key={index}>{mycatagory1.catagory}</option>
+              ))} */}
+            </select>
             {/* <CatagoryList
               className="form-control"
               onClick={loadCatagory}
               mycatagories={catagoryList}
             /> */}
-            {/* <CatagoryList ></CatagoryList> */}
-            <select className="form-control" onClick={loadCatagory}>
-              {catagoryList.map((mycatagorieslist) => (
-                <option>${mycatagorieslist.catagory}</option>
-              ))}
-              <option>kjkdjf</option>
-            </select>
+            {/* <CatagoryList mylist={catagoryList}></CatagoryList> */}
           </div>
           <div className="form-group">
-            <button className="btn btn-secondary" type="button">
-              <i className="fa fa-search"></i> Save
+            <button
+              className="btn btn-secondary"
+              type="button"
+              onClick={updateCatagory}
+            >
+              <i className="fa fa-search"></i> Update Catagory
             </button>
           </div>
           <div className="form-group">

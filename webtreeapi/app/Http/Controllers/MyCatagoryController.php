@@ -76,7 +76,61 @@ public function loadCatagory(Request $request)
        // return response()->json($userreg);
         if($catagories)
            {
-            return response()->json( $catagories);
+             return response()->json( $catagories);
+            //return  $catagories;
+           }
+           else{
+               return response()->json([
+                   'status'=>500,
+                   'Msg'=>'data not found'
+               ],500);
+             }
+    }
+    catch (ValidationException $e) {
+        // Handle generic exception
+        // return response()->json(['errors.generic', ['message' => $e->validator->errors()]], 500);
+        return response()->json( $e->validator->errors());
+    }
+    
+    // Additional logic...
+
+   // return response()->json($userreg['profpic'], 201);
+    //return response()->json($stud, 201);
+}
+
+public function updateCatagory(Request $request)
+{
+     try{
+    $validatedData = $request->validate([
+        'email' => 'required|email',
+        'catagory' => 'required|string',
+        'changecatagory' => 'required|string',
+        
+        
+        
+
+    ]);
+    
+  
+    $user = MyUsers::where('email',  $validatedData['email'])->first();
+    
+    $validatedData['customerid']=$user['customerid'];
+    
+    // Create a new student with the hashed password
+    $catagories = MyCatagories::where('customerid', $validatedData['customerid'])
+            ->where('catagory', $validatedData['catagory'])
+            ->update(['catagory' => $validatedData['changecatagory']]);
+    
+        // $catagories = MyCatagories::where('customerid',$validatedData['customerid'])->where('catagory',$validatedData['catagory'])->get();
+        
+        // $catagories->update(['catagory' => $validatedData['changecatagory']]);
+       
+        $catagories = MyCatagories::where('customerid',$validatedData['customerid'])->get();
+        // return response()->json($catagories);
+        if($catagories)
+           {
+             return response()->json( $catagories);
+            //return  $catagories;
            }
            else{
                return response()->json([
