@@ -28,7 +28,8 @@ function Signin() {
       )
       .then((result) => {
         console.log(result.data);
-        dispatch(loggedin(result.data));
+        const{myemail,myfullname}=result.data;
+        dispatch(loggedin({myemail,myfullname}));
         navigate("/dashboard");
         
       })
