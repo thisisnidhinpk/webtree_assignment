@@ -8,8 +8,11 @@ const authSlice = createSlice({
   },
   reducers: {
     loggedin: (state, action) => {
-      state.UserEmail = action.payload.email;
-      state.UserFullname = action.payload.fullname;
+      const{myemail,myfullname}=action.payload;
+      state.UserEmail = myemail;
+      state.UserFullname = myfullname;
+     // state.UserEmail = action.payload.email;
+     // state.UserFullname = action.payload.fullname;
     },
     loggedout: (state) => {
       state.UserEmail = null;
